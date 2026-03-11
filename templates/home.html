@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="blog-container">
+    <div class="profile-image-container">
+        <img src="static/assets/me.jpg" alt="Profile photo" class="profile-image" />
+    </div>
+
+    <div class="about-content-dark">
+        <p> I am an Software Engineer with a background in healthcare. </p>
+
+        <h2>What I Do</h2>
+        <p>
+            I started as a self taught engineer using HTML, CSS and JavaScript doing in it mainly as hobby. I then
+            transitioned into the industry by working at Funding Circle and mostly working in Ruby on Rails for backend
+            services.
+        </p>
+
+        <h2>Skills & Technologies</h2>
+        <div class="skills-grid">
+            <span class="skill-tag">Ruby on Rails</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">JavaScript/TypeScript</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Rest APIs</span>
+            <span class="skill-tag">Kafka</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">Kubernetes</span>
+        </div>
+
+        <h2>Get In Touch</h2>
+        <div class="contact-links">
+            <a href="/contact">Contact me</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

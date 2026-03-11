@@ -1,0 +1,295 @@
+/* Variables & Theme */
+:root {
+    --bg-color: #ffffff;
+    --text-main: #171717;
+    /* neutral-900 */
+    --text-muted: #525252;
+    /* neutral-600 */
+    --border-color: #e5e5e5;
+    /* neutral-200 */
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+html.dark {
+    --bg-color: #0a0a0a;
+    /* neutral-950 */
+    --text-main: #f5f5f5;
+    /* neutral-100 */
+    --text-muted: #a3a3a3;
+    /* neutral-400 */
+    --border-color: #262626;
+    /* neutral-800 */
+}
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s, color 0.3s;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 48rem;
+    /* 3xl */
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 64rem;
+    }
+
+    /* lg:max-w-5xl */
+}
+
+/* Header & Profile */
+.header {
+    display: flex;
+    flex-direction: column;
+    /* Stack by default on mobile */
+    align-items: center;
+    /* Center everything for a clean mobile look */
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .header {
+        flex-direction: row;
+        /* Side-by-side on tablets/desktops */
+        justify-content: space-between;
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+.name-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin: 1rem 0 0.25rem 0;
+}
+
+.job-title {
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Typography & Links */
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.contact-info {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+}
+
+/* Buttons & Components */
+.theme-toggle {
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: inherit;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+html.dark .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes pulse {
+    50% {
+        opacity: .5;
+    }
+}
+
+.skeleton-loader {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.footer {
+    margin-top: 5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* Container to handle layout and spacing */
+.profile-image-container {
+    margin-bottom: 2rem;
+    /* Spacing between image and text */
+}
+
+/* The actual image styling */
+.profile-image {
+    /* Fixed size for mobile */
+    width: 7rem;
+    height: 7rem;
+
+    /* This makes it round */
+    border-radius: 50%;
+
+    /* Crucial: prevents the image from looking squashed */
+    object-fit: cover;
+    object-position: top;
+
+    /* The subtle border from the original design */
+    border: 1px solid #e5e5e5;
+    display: block;
+}
+
+/* Size for larger screens (lg:w-40 lg:h-40) */
+@media (min-width: 1024px) {
+    .profile-image {
+        width: 10rem;
+        height: 10rem;
+    }
+}
+
+/* Dark mode border color */
+@media (prefers-color-scheme: dark) {
+    .profile-image {
+        border-color: #262626;
+        /* neutral-800 */
+    }
+}
+
+@media (max-width: 600px) {
+    .blog-nav {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .blog-nav-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .blog-header {
+        padding: 1rem 0;
+        /* Reduce vertical padding on mobile */
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.project-card {
+    padding: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.project-card {
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: transparent;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    /* Core layout for sticking the button to the bottom */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.project-card h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+}
+
+.project-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    /* This pushes the footer to the bottom */
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+
+.card-footer {
+    /* Insurance policy to ensure bottom alignment */
+    margin-top: auto;
+}
+
+/* Buttons */
+.btn-primary {
+    display: inline-block;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    color: var(--text-main);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    transition: background 0.2s, border-color 0.2s;
+    width: fit-content;
+    /* Or 100% if you want a full-width button */
+}
+
+.btn-primary:hover {
+    background-color: var(--border-color);
+}
+
+/* UI Components */
+.badge {
+    padding: 0.125rem 0.5rem;
+    font-size: 10px;
+    font-weight: 700;
+    background-color: var(--border-color);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0.25rem;
+}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="page-header">
+    <h1>Projects</h1>
+    <p class="subtitle">A collection of things I've built.</p>
+</header>
+
+<section class="projects-grid">
+    {% for project in projects %}
+    <article class="project-card">
+        <div class="card-header">
+            <h3>{{ project.name }}</h3>
+        </div>
+
+        <p>{{ project.description | default(value="A project without a description.") }}</p>
+
+        <footer class="card-footer">
+            <a href="{{ project.html_url }}" class="btn-primary" target="_blank">View on GitHub</a>
+        </footer>
+    </article>
+    {% else %}
+    <p>No projects found right now. Check back soon!</p>
+    {% endfor %}
+</section>
+
+{% endblock content %}

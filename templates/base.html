@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ Title }}{% endblock title %}</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/blog.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300;400;500;600&family=Lora:wght@400;500;600&family=Inter:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body class="blog-body">
+    <header class="blog-header">
+        <nav class="blog-nav">
+            <a href="/" class="blog-logo">Mauro</a>
+            <div class="blog-nav-links">
+                <a href="/" class="{% if active_page == 'home' %}active{% endif %}">home</a>
+                <a href="/projects" class="{% if active_page == 'projects' %}active{% endif %}">projects</a>
+                <a href="/blog" class="{% if active_page == 'blog' %}active{% endif %}">blog</a>
+                <a href="/experience" class="{% if active_page == 'experience' %}active{% endif %}">experience</a>
+                <a href="/contact" class="{% if active_page == 'contact' %}active{% endif %}">contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="blog-main">
+        {% block content %}
+        {% endblock content %}
+    </main>
+</body>
+
+</html>
