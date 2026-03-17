@@ -1,9 +1,4 @@
-
-to run the server and automatically update whena a change is made
-
-`cargo watch -x run`
-
-better divide the 2 css files
+Portfolio project inspired by https://github.com/cfereday
 
 # Mauro's Portfolio Website
 
@@ -11,8 +6,7 @@ A personal portfolio website built with Rust
 
 ## ✨ Features
 
-- **Dark Theme**: Ocean-inspired design with turquoise accents
-- **Blog System**: Markdown-powered blog with status tags (draft/complete)
+<!-- - **Blog System**: Markdown-powered blog with status tags (draft/complete) -->
 - **Experience Timeline**: Professional background showcase
 - **Responsive Design**: Mobile-friendly layout
 - **Fast Performance**: Rust server
@@ -25,26 +19,18 @@ A personal portfolio website built with Rust
 ## 📁 Project Structure
 
 ```
-Mauro-website/
+Portfolio/
 ├── content/
-│   └── blog/           # Markdown blog posts
+│   └── blog/          # Markdown blog posts
 ├── static/
 │   ├── css/           # Stylesheets
 │   └── assets/        # Static images, CV
 ├── templates/         # HTML templates
-├── parser/            # Markdown parsing logic
+├── parser/            # Markdown parsing logic for blogs
 │    src/
 │   └── main.rs        # Rust server
 ├── Cargo.toml         # Rust dependencies
-└── Dockerfile         # Container configuration
 ```
-
-## 🚀 Local Development
-
-### Prerequisites
-
-- Go 1.24+
-- Git
 
 ### Setup
 
@@ -74,16 +60,3 @@ Your blog post content here...
 - `Published`: Date in "Month Day, Year" format
 - `Category`: Post category
 - `Status`: `draft` or `complete` (shows colored tag)
-
-## 🎨 Design System
-
-### Colors
-- **Background**: `#0d1b2a` (dark ocean blue)
-- **Primary**: `#20b2aa` (turquoise)
-- **Text**: `#eceff1` (light gray)
-- **Secondary**: `#707070` (medium gray)
-
-### Typography
-- **Headers**: Lora (serif)
-- **Body**: Lora (serif)
-- **Code/Nav**: Inconsolata (monospace)
