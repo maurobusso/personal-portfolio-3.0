@@ -4,7 +4,7 @@ Portfolio project inspired by https://github.com/cfereday
 
 A personal portfolio website built with Rust
 
-deployes on render available here: https://portfolio-kvnv.onrender.com
+deployes on leapcell available here: https://mauro-busso-portfolio.leapcell.app
 
 ## ✨ Features
 
