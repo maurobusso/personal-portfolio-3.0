@@ -14,7 +14,7 @@ impl GitHubService {
 
     pub async fn get_portfolio_repos(&self) -> Result<Vec<PortfolioRepo>, reqwest::Error> {
         let url = format!("{}/search/repositories", self.base_url);
-        let query = format!("user:{}+topic:portfolio+fork:true", self.username);
+        let query = format!("user:{} topic:portfolio fork:true", self.username);
 
         let response: GitHubSearchResponse = self.client
         .get(url)
@@ -72,7 +72,7 @@ mod tests {
         Mock::given(method("GET"))
             .and(path("/search/repositories"))
             // We check if our code sends the right query parameters
-            .and(query_param("q", "user:testuser+topic:portfolio+fork:true"))
+            .and(query_param("q", "user:testuser topic:portfolio fork:true"))
             .respond_with(ResponseTemplate::new(200).set_body_json(fake_github_response))
             .mount(&mock_server)
             .await;
