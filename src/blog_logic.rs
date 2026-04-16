@@ -1,5 +1,5 @@
-use std::fs;
 use chrono::NaiveDate;
+use std::fs;
 // We reach into our models file to get the BlogPost definition
 use crate::models::BlogPost;
 
@@ -27,11 +27,29 @@ pub fn load_blog_posts() -> Vec<BlogPost> {
             if line.starts_with("# ") {
                 title = line.trim_start_matches("# ").to_string();
             } else if line.contains("*Published:") {
-                date_str = line.split(':').nth(1).unwrap_or("").trim().trim_matches('*').to_string();
+                date_str = line
+                    .split(':')
+                    .nth(1)
+                    .unwrap_or("")
+                    .trim()
+                    .trim_matches('*')
+                    .to_string();
             } else if line.contains("*Category:") {
-                category = line.split(':').nth(1).unwrap_or("").trim().trim_matches('*').to_string();
+                category = line
+                    .split(':')
+                    .nth(1)
+                    .unwrap_or("")
+                    .trim()
+                    .trim_matches('*')
+                    .to_string();
             } else if line.contains("*Status:") {
-                status = line.split(':').nth(1).unwrap_or("").trim().trim_matches('*').to_string();
+                status = line
+                    .split(':')
+                    .nth(1)
+                    .unwrap_or("")
+                    .trim()
+                    .trim_matches('*')
+                    .to_string();
             } else if !line.trim().is_empty() && !line.starts_with('*') {
                 found_content = true;
             }
@@ -56,11 +74,15 @@ pub fn load_blog_posts() -> Vec<BlogPost> {
             content: html_output,
             date,
             category,
-            excerpt: content_lines.first().cloned().unwrap_or_default().to_string(),
+            excerpt: content_lines
+                .first()
+                .cloned()
+                .unwrap_or_default()
+                .to_string(),
             status,
         });
     }
 
-    posts.sort_by(|a, b| b.date.cmp(&a.date));
+    posts.sort_by_key(|b| std::cmp::Reverse(b.date));
     posts
 }
