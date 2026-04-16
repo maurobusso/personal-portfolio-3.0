@@ -3,7 +3,6 @@ name: Rust CI
 # Run this pipeline on every push to the 'main' branch
 on:
   push:
-    branches: ["main"]
   pull_request:
     branches: ["main"]
 
