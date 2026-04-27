@@ -2,6 +2,7 @@ use serde::{ Serialize, Deserialize }; // Library for serializing json into code
 use reqwest::Client; // For making http requests
 use chrono::NaiveDate; // Handles date and time
 use tera::Tera; // Template engine
+use moka::future::Cache;
 
 // In Rust, a "model" file defines the shape of the objects the code will handle—like blog posts
 // or GitHub data—and how they should be converted to and from formats like JSON or HTML.
@@ -40,7 +41,7 @@ pub struct GitHubRawRepo {
     pub html_url: String,
     pub description: Option<String>,
     pub stargazers_count: u32,
-    pub topics: Vec<String>,
+    pub topics: Option<Vec<String>>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -53,4 +54,5 @@ pub struct GitHubService {
     pub client: Client,
     pub username: String,
     pub base_url: String,
+    pub cache: Cache<String, Vec<PortfolioRepo>>,
 }

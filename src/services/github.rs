@@ -2,6 +2,8 @@ use reqwest::{ header::{USER_AGENT, ACCEPT}};
 use crate::models::PortfolioRepo;
 use crate::models::{GitHubService};
 use crate::models::GitHubSearchResponse;
+use moka::future::Cache;
+use std::time::Duration;
 
 impl GitHubService {
     pub fn new(username: &str) -> Self {
@@ -9,18 +11,30 @@ impl GitHubService {
             client: reqwest::Client::new(),
             username: username.to_string(),
             base_url: "https://api.github.com".to_string(),
+            cache: Cache::builder()
+                .time_to_live(Duration::from_secs(60 * 60))
+                .build()
         }
     }
 
     pub async fn get_portfolio_repos(&self) -> Result<Vec<PortfolioRepo>, reqwest::Error> {
+        let cache_key = self.username.clone();
+
+        // 1. Check if it's in the cache first
+        if let Some(repos) = self.cache.get(&cache_key).await {
+            println!("Serving from cache!");
+            return Ok(repos);
+        }
+
         let url = format!("{}/search/repositories", self.base_url);
         let query = format!("user:{} topic:portfolio fork:true", self.username);
+        // let query = format!("user:{}", self.username);
 
         let response: GitHubSearchResponse = self.client
         .get(url)
         .query(&[("q", &query)]) // <--- Reqwest handles the '?' and encoding for you!
         .header(USER_AGENT, "portfolio-service")
-        .header(ACCEPT, "application/vnd.github.v3+json")
+        .header(ACCEPT, "application/vnd.github.mercy-preview+json")
         .send()
         .await?
         .error_for_status()?
@@ -28,16 +42,19 @@ impl GitHubService {
         .await?;
 
         // Transform the raw API items into your Template-friendly format
-        let items = response.items.into_iter().map(|item| {
+        let items: Vec<PortfolioRepo> = response.items.into_iter().map(|item| {
             PortfolioRepo {
                 name: item.name.clone(),
                 html_url: item.html_url.clone(), // maps to repo_url
                 description: item.description,
                 stargazers_count: item.stargazers_count,
                 image_url: format!("https://opengraph.githubassets.com/1/{}/{}", self.username, item.name),
-                tech_stack: item.topics
+                tech_stack: item.topics.unwrap_or_default(),
             }
         }).collect();
+
+        // 3. Save to cache before returning
+        self.cache.insert(cache_key, items.clone()).await;
 
         Ok(items)
     }
@@ -84,6 +101,7 @@ mod tests {
             client: reqwest::Client::new(),
             username: "testuser".to_string(),
             base_url: mock_server.uri(),
+            cache: moka::future::Cache::builder().build()
         };
 
         // 5. Run the function!
@@ -114,6 +132,7 @@ mod tests {
             client: reqwest::Client::new(),
             username: "testuser".to_string(),
             base_url: mock_server.uri(),
+            cache: moka::future::Cache::builder().build(),
         };
 
         // 3. Run the function
@@ -144,6 +163,7 @@ mod tests {
             client: reqwest::Client::new(),
             username: "non-existent-user".to_string(),
             base_url: mock_server.uri(),
+            cache: moka::future::Cache::builder().build(),
         };
 
         let result = service.get_portfolio_repos().await;
