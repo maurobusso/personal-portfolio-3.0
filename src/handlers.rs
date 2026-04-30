@@ -11,6 +11,10 @@ use crate::blog_logic::load_blog_posts;
 
 // --- Handlers ---
 
+pub async fn health_handler() -> impl IntoResponse {
+    (StatusCode::OK, "OK")
+}
+
 pub async fn home_handler(State(state): State<Arc<AppState>>) -> impl IntoResponse {
     let mut ctx = Context::new();
     ctx.insert("Title", "Mauro's Portfolio");
