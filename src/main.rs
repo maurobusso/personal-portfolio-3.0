@@ -41,7 +41,6 @@ async fn main() {
     let app = Router::new()
         .route("/", get(handlers::home_handler))
         .route("/health", get(handlers::health_handler))
-        .route("/ping", get(handlers::health_handler))
         .route("/blog", get(handlers::blog_handler))
         .route("/blog/:slug", get(handlers::blog_post_handler))
         .route("/experience", get(handlers::experience_handler))
